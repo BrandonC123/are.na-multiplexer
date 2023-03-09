@@ -93,7 +93,7 @@ function WindowToolbar({
                         // console.log(resp.data.response.posts[0]);
                         console.log(resp.data.response.posts);
                         const posts: IPost[] = resp.data.response.posts.map(
-                            (post: { blog_name: any; blog: any }) => {
+                            (post: { blog_name: any; body: any }) => {
                                 return {
                                     name: post.blog_name,
                                     body: post.body,
