@@ -13,6 +13,11 @@ import { MosaicContext, MosaicWindowContext } from "react-mosaic-component";
 import { useDesktopActionsContext } from "../context/DesktopContext";
 import { ChannelWindowState } from "./Desktop";
 
+export interface IPost {
+    name: string;
+    body: string;
+}
+
 function WindowToolbar({
     data: { data: channel, scale, view },
     setTumblr,
@@ -86,8 +91,17 @@ function WindowToolbar({
                             `https://api.tumblr.com/v2/blog/${blogName}/posts/photo?api_key=A6JH1CFYabAvy7VZnBgm7rxOGpCRwigiatdYIiXQARuuuT9UIN`
                         );
                         // console.log(resp.data.response.posts[0]);
-                        const posts = resp.data.response.posts;
+                        console.log(resp.data.response.posts);
+                        const posts: IPost[] = resp.data.response.posts.map(
+                            (post: { blog_name: any; blog: any }) => {
+                                return {
+                                    name: post.blog_name,
+                                    body: post.body,
+                                };
+                            }
+                        );
                         console.log(posts);
+
                         setTumblr(posts);
                     }}
                     className="hover:underline"

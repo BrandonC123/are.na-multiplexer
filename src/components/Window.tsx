@@ -22,7 +22,7 @@ import BlocksGrid from "./BlocksGrid";
 import BlocksList from "./BlocksList";
 import { ChannelWindowState } from "./Desktop";
 import Spinner from "./Spinner";
-import WindowToolbar from "./WindowToolbar";
+import WindowToolbar, { IPost } from "./WindowToolbar";
 
 export interface WindowProps {
     path: MosaicPath;
@@ -61,7 +61,7 @@ function Window({
         [loadingStatus]
     );
 
-    const [tumblr, setTumblr] = useState<any[]>([]);
+    const [tumblr, setTumblr] = useState<IPost[]>([]);
 
     const fetchBlocks = useCallback(async () => {
         if (!arena) return;
@@ -333,12 +333,16 @@ function BlankSlate() {
     );
 }
 
-function TumblrPosts({ tumblr }) {
+interface ITumblrPostsProps {
+    tumblr: IPost[];
+}
+
+function TumblrPosts({ tumblr }: ITumblrPostsProps) {
     return (
         <>
             Tumblr posts:
-            <div className="flex flex-wrap gap-2 p-2 overflow-y-auto max-h-screen">
-                {tumblr.map((post, index) => {
+            <div className="flex max-h-screen flex-wrap gap-2 overflow-y-auto p-2">
+                {tumblr.map((post: IPost, index: number) => {
                     return (
                         <div
                             className="max-w-[240px]"
